@@ -2,7 +2,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRC = src/main.c
+SRC = src/main.c src/parsing.c
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -I ../includes
