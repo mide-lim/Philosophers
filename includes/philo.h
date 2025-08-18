@@ -4,18 +4,26 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
 # include <limits.h>
 
-typedef struct s_config
+/* ---------- Struct ---------- */
+typedef struct s_args
 {
-    int philosophers;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int must_eat_count; // opcional
-}   t_config;
+	int	nbr_philos;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	must_eat_count;
+}	t_args;
 
-// parsing.c
-int     parse_arguments(int argc, char **argv, t_config *config);
+/* ---------- Parsing ---------- */
+int		parse_args(int argc, char **argv, t_args *args);
+
+/* ---------- Time Utils ---------- */
+long	get_time_ms(void);
+void	ft_usleep(long ms);
 
 #endif
+

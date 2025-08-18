@@ -29,7 +29,7 @@ static int ft_atoi_positive(const char *str)
     return ((int)num);
 }
 
-int parse_arguments(int argc, char **argv, t_config *config)
+int parse_args(int argc, char **argv, t_args *config)
 {
     if (argc != 5 && argc != 6)
     {
@@ -44,13 +44,13 @@ int parse_arguments(int argc, char **argv, t_config *config)
             return (1);
         }
     }
-    config->philosophers = ft_atoi_positive(argv[1]);
+    config->nbr_philos = ft_atoi_positive(argv[1]);
     config->time_to_die = ft_atoi_positive(argv[2]);
     config->time_to_eat = ft_atoi_positive(argv[3]);
     config->time_to_sleep = ft_atoi_positive(argv[4]);
     config->must_eat_count = (argc == 6) ? ft_atoi_positive(argv[5]) : -1;
 
-    if (config->philosophers <= 0 || config->time_to_die <= 0
+    if (config->nbr_philos <= 0 || config->time_to_die <= 0
         || config->time_to_eat <= 0 || config->time_to_sleep <= 0
         || (argc == 6 && config->must_eat_count <= 0))
     {

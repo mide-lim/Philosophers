@@ -2,13 +2,13 @@
 
 int main(int argc, char **argv)
 {
-    t_config config;
+    t_args config;
 
-    if (parse_arguments(argc, argv, &config) != 0)
+    if (parse_args(argc, argv, &config) != 0)
         return (1);
 
     printf("Parsed arguments:\n");
-    printf(" Philosophers: %d\n", config.philosophers);
+    printf(" Philosophers: %d\n", config.nbr_philos);
     printf(" Time to die: %d\n", config.time_to_die);
     printf(" Time to eat: %d\n", config.time_to_eat);
     printf(" Time to sleep: %d\n", config.time_to_sleep);
