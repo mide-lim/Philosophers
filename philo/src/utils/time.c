@@ -1,8 +1,5 @@
 #include "philo.h"
 
-/*
-** Retorna o tempo atual em milissegundos
-*/
 long	get_time_ms(void)
 {
 	struct timeval	tv;
@@ -17,5 +14,5 @@ void	ft_usleep(long ms)
 
 	start = get_time_ms();
 	while ((get_time_ms() - start) < ms)
-		usleep(500); // dorme em intervalos curtos para manter precisão
+		usleep(500);
 }

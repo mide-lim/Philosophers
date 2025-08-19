@@ -44,15 +44,15 @@ int parse_args(int argc, char **argv, t_args *config)
             return (1);
         }
     }
-    config->nbr_philos = ft_atoi_positive(argv[1]);
+    config->number_of_philosophers = ft_atoi_positive(argv[1]);
     config->time_to_die = ft_atoi_positive(argv[2]);
     config->time_to_eat = ft_atoi_positive(argv[3]);
     config->time_to_sleep = ft_atoi_positive(argv[4]);
-    config->must_eat_count = (argc == 6) ? ft_atoi_positive(argv[5]) : -1;
+    config->number_of_times_each_philosopher_must_eat = (argc == 6) ? ft_atoi_positive(argv[5]) : -1;
 
-    if (config->nbr_philos <= 0 || config->time_to_die <= 0
+    if (config->number_of_philosophers <= 0 || config->time_to_die <= 0
         || config->time_to_eat <= 0 || config->time_to_sleep <= 0
-        || (argc == 6 && config->must_eat_count <= 0))
+        || (argc == 6 && config->number_of_times_each_philosopher_must_eat <= 0))
     {
         write(2, "Error: invalid argument values\n", 31);
         return (1);

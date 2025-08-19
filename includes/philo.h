@@ -34,6 +34,7 @@ typedef struct s_philo
 
 /* ---------- Parsing ---------- */
 int		parse_args(int argc, char **argv, t_args *args);
+void    *philo_routine(void *arg);
 
 /* ---------- Time Utils ---------- */
 long	get_time_ms(void);
