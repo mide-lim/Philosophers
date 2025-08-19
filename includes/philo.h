@@ -11,12 +11,26 @@
 /* ---------- Struct ---------- */
 typedef struct s_args
 {
-	int	nbr_philos;
+	int	number_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
-	int	must_eat_count;
+	int	number_of_times_each_philosopher_must_eat;
+	int	stop;
+	int	start_time;
+	pthread_mutex_t	*forks;
 }	t_args;
+
+typedef struct s_philo
+{
+	int	id;
+	int	meals_eaten;
+	int	last_meal;
+	int	left_fork;
+	int	right_fork;
+	t_args	*data;
+	pthread_t	thread_id;
+}	t_philo;
 
 /* ---------- Parsing ---------- */
 int		parse_args(int argc, char **argv, t_args *args);
