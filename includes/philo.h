@@ -1,44 +1,63 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <limits.h>
 
-/* ---------- Struct ---------- */
-typedef struct s_args
+typedef struct s_rules
 {
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
-	int	stop;
-	int	start_time;
-	pthread_mutex_t	*forks;
-}	t_args;
+	int				n_philos;
+	long long		t_die;
+	long long		t_eat;
+	long long		t_sleep;
+	int				must_eat;
+	long long		start_time;
+	int				someone_died;
+	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	dead_mutex;
+	pthread_mutex_t	meal_mutex;
+}	t_rules;
 
 typedef struct s_philo
 {
-	int	id;
-	int	meals_eaten;
-	int	last_meal;
-	int	left_fork;
-	int	right_fork;
-	t_args	*data;
-	pthread_t	thread_id;
+	int				id;
+	int				meals_eaten;
+	long long		last_meal;
+	pthread_t		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	t_rules			*rules;
 }	t_philo;
 
-/* ---------- Parsing ---------- */
-int		parse_args(int argc, char **argv, t_args *args);
-void    *philo_routine(void *arg);
+/* parse.c */
+int			parse_args(int ac, char **av, t_rules *rules);
 
-/* ---------- Time Utils ---------- */
-long	get_time_ms(void);
-void	ft_usleep(long ms);
+/* init.c */
+int			init_all(t_philo **philos, pthread_mutex_t **forks, t_rules *rules);
+
+/* routine.c */
+void		*philo_routine(void *arg);
+
+/* monitor.c */
+void		monitor_loop(t_philo *philos, t_rules *rules);
+
+/* print.c */
+void		print_state(t_philo *philo, const char *msg);
+void		print_death(t_philo *philo);
+
+/* utils.c */
+long long	get_time_ms(void);
+long long	elapsed_ms(long long since);
+void		precise_sleep(long long ms, t_rules *rules);
+int			ft_atoi(const char *s);
+int			ft_isdigit_str(const char *s);
+int			is_dead(t_rules *rules);
+void		set_dead(t_rules *rules);
+
+/* cleanup.c */
+void		cleanup_all(t_philo *philos, pthread_mutex_t *forks, t_rules *rules);
 
 #endif
-
