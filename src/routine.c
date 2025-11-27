@@ -36,9 +36,19 @@ static void	philo_eat(t_philo *p)
 
 static void	philo_sleep_think(t_philo *p)
 {
+	long long	think_time;
+
 	print_state(p, "is sleeping");
 	precise_sleep(p->rules->t_sleep, p->rules);
 	print_state(p, "is thinking");
+	if (p->rules->n_philos % 2 != 0)
+	{
+		think_time = (p->rules->t_eat * 2) - p->rules->t_sleep;
+		if (think_time < 0)
+			think_time = 0;
+		if (think_time > 0)
+			precise_sleep(think_time, p->rules);
+	}
 }
 
 void	*philo_routine(void *arg)
